@@ -6,6 +6,12 @@ Code for the [Building a live streaming platform](https://www.maugzoide.com/post
 
 To run any command listed here, make sure you have **make** and **Docker** installed.
 
-**make runserver** Run a container with NGINX-RTMP
+Run a container with NGINX-RTMP
+```
+make runserver
+```
 
-**make ingest** Ingest a live video using ffmpeg
+Ingest a live video using ffmpeg
+```
+make ingest
+```
