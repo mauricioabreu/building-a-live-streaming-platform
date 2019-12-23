@@ -1,6 +1,6 @@
 # Building a live streaming platform
 
-Code for the "Building a live streaming platform" post
+Code for the [Building a live streaming platform](https://www.maugzoide.com/posts/building-a-live-streaming-platform-part-i/) post
 
 ## Usage
 
