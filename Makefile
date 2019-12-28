@@ -10,6 +10,6 @@ ingest:
     -window_size 5  -extra_window_size 10 -remove_at_exit 1 -adaptation_sets "id=0,streams=v id=1,streams=a" -f flv rtmp://localhost:1935/stream/colors
 
 runserver:
-	docker run --net="host" -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
+	docker run -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
 
 .PHONY: ingest runserver
