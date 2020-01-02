@@ -2,7 +2,7 @@
 
 Code for the [Building a live streaming platform](https://www.maugzoide.com/posts/building-a-live-streaming-platform-part-i/) post
 
-# Requisites
+## Requisites
 
 **Before running these commands you need to create a Docker network to link containers**
 ```
