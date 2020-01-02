@@ -4,7 +4,7 @@ Code for the [Building a live streaming platform](https://www.maugzoide.com/post
 
 ## Requisites
 
-**Before running these commands you need to create a Docker network to link containers**
+**Before running "Usage" commands you need to create a Docker network to link containers**
 ```
 docker network create live-stream
 ```
