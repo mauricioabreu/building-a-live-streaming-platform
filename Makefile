@@ -1,5 +1,5 @@
 ingest:
-	docker run --net="host" --rm -v $(shell pwd):/files jrottenberg/ffmpeg -hide_banner \
+	docker run --net="live-stream" --rm -v $(shell pwd):/files jrottenberg/ffmpeg -hide_banner \
 	-re -f lavfi -i "testsrc2=size=1280x720:rate=30" -pix_fmt yuv420p \
 	-c:v libx264 -x264opts keyint=30:min-keyint=30:scenecut=-1 \
 	-tune zerolatency -profile:v high -preset veryfast -bf 0 -refs 3 \
@@ -10,6 +10,6 @@ ingest:
 	-window_size 5  -extra_window_size 10 -remove_at_exit 1 -adaptation_sets "id=0,streams=v id=1,streams=a" -f flv rtmp://localhost:1935/stream/colors
 
 runserver:
-	docker run -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
+	docker run --net="live-stream" -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
 
 .PHONY: ingest runserver
