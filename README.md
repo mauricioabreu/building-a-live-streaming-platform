@@ -24,3 +24,13 @@ Ingest a live video using ffmpeg
 ```
 make ingest
 ```
+
+## API
+
+We can test our API using *cURL*, making some requests and reading the response body along with out application logs.
+
+### `/auth`
+
+```shell
+curl -XPOST -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:8080/auth -d "name=foos&psk=bar"
+```
