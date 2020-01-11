@@ -1,3 +1,6 @@
+cratedb:
+	sqlite3 live.db < live.sql
+
 ingest:
 	docker run --net="live-stream" --rm -v $(shell pwd):/files jrottenberg/ffmpeg -hide_banner \
 	-re -f lavfi -i "testsrc2=size=1280x720:rate=30" -pix_fmt yuv420p \
@@ -12,4 +15,4 @@ ingest:
 runserver:
 	docker run --name nginx-rtmp --net="live-stream" -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
 
-.PHONY: ingest runserver
+.PHONY: create-db ingest runserver

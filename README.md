@@ -25,9 +25,27 @@ Ingest a live video using ffmpeg
 make ingest
 ```
 
+## Web Application
+
+The web application is used to authorize the incoming streams. Is there a streamer you like? Some famous person you like the videos? I watch some game streamers. How does a video platform know that your preffered Youtuber is himself/herself?
+
+Before starting our web application, we need to create the database to hold our *publisher credentials*:
+
+```
+make createdb
+```
+
+And then we can use [docker-compose](https://docs.docker.com/compose/) to start our application, built with the Go programming language:
+
+```
+make runwebapp
+```
+
+Now we have a server running. We can send HTTP requests to the server to experiment it.
+
 ## API
 
-We can test our API using *cURL*, making some requests and reading the response body along with out application logs.
+We can test our API using *cURL*, making some requests and reading the response body along with our application logs.
 
 ### `/auth`
 
