@@ -50,5 +50,5 @@ We can test our API using *cURL*, making some requests and reading the response 
 ### `/auth`
 
 ```shell
-curl -XPOST -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:8080/auth -d "name=foos&psk=bar"
+curl -XPOST -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:9090/auth -d "name=foos&psk=bar"
 ```

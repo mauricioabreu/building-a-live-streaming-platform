@@ -1,3 +1,3 @@
 FROM golang:onbuild
 
-EXPOSE 8080
+EXPOSE 9090

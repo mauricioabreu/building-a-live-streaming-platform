@@ -62,11 +62,20 @@ func authorize(w http.ResponseWriter, r *http.Request) {
 
 	stream := r.Form.Get("name")
 	key := r.Form.Get("psk")
-	log.Printf("Authorizing stream for %s and key %s", stream, key)
+
+	if stream == "" || key == "" {
+		log.Print(err)
+		w.WriteHeader(403)
+		w.Write([]byte(`{"message": "Stream not authorized. Check your URL/credentials"}`))
+		return
+	}
 
 	keyFound, err := db.GetKey(stream)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		w.WriteHeader(403)
+		w.Write([]byte(`{"message": "Stream not authorized. Check your URL/credentials"}`))
+		return
 	}
 
 	if key == keyFound {
@@ -92,5 +101,5 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/auth", authorize).Methods("POST")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":9090", router))
 }

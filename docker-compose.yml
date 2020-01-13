@@ -3,4 +3,20 @@ services:
   api:
     build: .
     ports:
-      - "8080:8080"
+      - "9090:9090"
+    networks:
+      - backbone
+
+  rtmp:
+    build: https://github.com/mauricioabreu/docker-nginx-rtmp.git
+    ports:
+      - "1935:1935"
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - backbone
+
+networks:
+  backbone:
+    driver: bridge
