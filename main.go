@@ -38,20 +38,20 @@ func NewDB(config *Config) (*Database, error) {
 	return &Database{db}, nil
 }
 
-func (db *Database) GetKey(name string) (string, error) {
-	stmt, err := db.Prepare("SELECT key FROM publishers WHERE name=?")
+func (db *Database) CheckKey(key string) (bool, error) {
+	stmt, err := db.Prepare("SELECT count(1) FROM publishers WHERE key=?")
 	if err != nil {
-		return "", fmt.Errorf("error %s: unable to prepare SQL statement", err)
+		return false, fmt.Errorf("error %s: unable to prepare SQL statement", err)
 	}
 	defer stmt.Close()
 
-	var key string
-	err = stmt.QueryRow(name).Scan(&key)
-	if err != nil {
-		return "", nil
+	var count int
+	err = stmt.QueryRow(key).Scan(&count)
+	if err != nil || count == 0 {
+		return false, err
 	}
 
-	return key, nil
+	return true, nil
 }
 
 func authorize(w http.ResponseWriter, r *http.Request) {
@@ -60,17 +60,16 @@ func authorize(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	stream := r.Form.Get("name")
-	key := r.Form.Get("psk")
+	key := r.Form.Get("name")
 
-	if stream == "" || key == "" {
+	if key == "" {
 		log.Print(err)
 		w.WriteHeader(403)
 		w.Write([]byte(`{"message": "Stream not authorized. Check your URL/credentials"}`))
 		return
 	}
 
-	keyFound, err := db.GetKey(stream)
+	found, err := db.CheckKey(key)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(403)
@@ -78,7 +77,7 @@ func authorize(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if key == keyFound {
+	if found {
 		w.WriteHeader(200)
 		w.Write([]byte(`{"message": "Stream authorized"}`))
 		return

@@ -51,8 +51,14 @@ Now we have a server running. We can send HTTP requests to the server to experim
 
 We can test our API using *cURL*, making some requests and reading the response body along with our application logs.
 
-#### `/auth`
+#### `/auth` (simple - with name and key)
 
 ```shell
 curl -XPOST -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:9090/auth -d "name=foos&psk=bar"
+```
+
+#### `/auth` (improved - with key only)
+
+```shell
+curl -XPOST -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:9090/auth -d "name=bar"
 ```
